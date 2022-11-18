@@ -13,6 +13,11 @@ public class Alimento {
     public Alimento() {
     }
 
+    public Alimento(String nombre) {
+        this.nombre = nombre;
+    }
+    
+
     public Alimento(String nombre, Categoria categoria, int costo, int calorias) {
         this.nombre = nombre;
         this.categoria = categoria;

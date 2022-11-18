@@ -5,10 +5,13 @@
  */
 package lab6p2_hectorhernandez_12211096;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 
 /**
  *
@@ -25,6 +28,8 @@ public class Principal extends javax.swing.JFrame {
         modelo.addElement(new Categoria("Panaderia"));
         
         cb_categoria.setModel(modelo);
+        
+        JugadoresDefault();
         
         
     }
@@ -43,14 +48,14 @@ public class Principal extends javax.swing.JFrame {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTree1 = new javax.swing.JTree();
+        jt_categorias = new javax.swing.JTree();
         jProgressBar1 = new javax.swing.JProgressBar();
         bt_alimentar = new java.awt.Button();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jl_jugadores = new javax.swing.JList<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -106,7 +111,9 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane1.setViewportView(jTree1);
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Root");
+        jt_categorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        jScrollPane1.setViewportView(jt_categorias);
 
         bt_alimentar.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         bt_alimentar.setLabel("Alimentar");
@@ -125,8 +132,8 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel4.setText("500");
 
-        jList1.setModel(new DefaultListModel());
-        jScrollPane7.setViewportView(jList1);
+        jl_jugadores.setModel(new DefaultListModel());
+        jScrollPane7.setViewportView(jl_jugadores);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -499,15 +506,36 @@ public class Principal extends javax.swing.JFrame {
 
     private void bt_crear_categoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crear_categoriaMouseClicked
         // TODO add your handling code here:
-        
+
         String nom_categoria;
         nom_categoria = jtf_nomcategoria.getText();
-        
-        DefaultComboBoxModel model = (DefaultComboBoxModel)cb_categoria.getModel();
+
+        DefaultComboBoxModel model = (DefaultComboBoxModel) cb_categoria.getModel();
         model.addElement(new Categoria(nom_categoria));
         jtf_nomcategoria.setText("");
-        
+
         JOptionPane.showMessageDialog(rootPane, "Categoria Creada Exitosamente");
+
+        //Para Capturar el modelo del arbol
+        DefaultTreeModel modelo = (DefaultTreeModel) jt_categorias.getModel();
+        //Para Capturar nodo del arbol
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
+        
+        //Crear nodo
+        DefaultMutableTreeNode nodo_categoria;
+        //Llenar nodo
+        nodo_categoria = new DefaultMutableTreeNode(new Categoria(jtf_nomcategoria.getText()));
+        //Crear nodo
+        DefaultMutableTreeNode nodo_alimento;
+        //Llenar nodo
+        nodo_alimento = new DefaultMutableTreeNode(new Alimento(jtf_nombre.getText()));
+        
+        
+
+        modelo.reload();
+        jtf_nomcategoria.setText("");
+
+
     }//GEN-LAST:event_bt_crear_categoriaMouseClicked
 
     private void bt_crear_billeteraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crear_billeteraMouseClicked
@@ -540,8 +568,7 @@ public class Principal extends javax.swing.JFrame {
         
         for (Billetera billetera : bi) {
             modelo.addElement(billetera);
-        }
-               
+        }       
     }
     private void bt_crear_alimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crear_alimentoMouseClicked
         // TODO add your handling code here:
@@ -568,7 +595,7 @@ public class Principal extends javax.swing.JFrame {
 
             cargarLista();
 
-            JOptionPane.showMessageDialog(rootPane, "Alimeto Creado Exitosamente");
+            JOptionPane.showMessageDialog(rootPane, "Alimento Creado Exitosamente");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -610,6 +637,66 @@ public class Principal extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void JugadoresDefault(){
+        //bi billeteras
+        //cat categorias
+        //ali alimentos
+        //jug jugadores
+        
+        //Billetera
+        bi.add(new Billetera(1000,500));
+        //Categorias
+        cat.add(new Categoria("Pastas"));
+        cat.add(new Categoria("Reposteria"));
+        
+        //Para Pastas
+        ali.add(new Alimento("Lazaña", cat.get(0), 145, 399));
+        ali.add(new Alimento("Caracolitos", cat.get(0), 20, 100));
+        ali.add(new Alimento("Tornillitos", cat.get(0), 25, 140));
+        ali.add(new Alimento("Spaguettis", cat.get(0), 30, 150));
+        ali.add(new Alimento("Marmahon", cat.get(0), 35, 179));
+        //Para Reposteria
+        ali.add(new Alimento("Cheseecake", cat.get(1), 75, 340));
+        ali.add(new Alimento("Pastel Selva Negra", cat.get(1), 59, 380));
+        ali.add(new Alimento("Pastelito de Piña", cat.get(1), 40, 400));
+        ali.add(new Alimento("Dona Glaseada", cat.get(1), 35, 358));
+        ali.add(new Alimento("Mil Hojas", cat.get(1), 60, 500));
+        //Jugadores
+        jug.add(new Jugador("Hector", "12211096", 10, 350, ali.get(0), bi.get(0)));
+        jug.add(new Jugador("Diviana", "12137458", 45, 500, ali.get(1), bi.get(0)));
+        jug.add(new Jugador("Santos", "12211876", 5, 550, ali.get(2), bi.get(0)));
+        jug.add(new Jugador("Carlos", "12347658", 32, 400, ali.get(3), bi.get(0)));
+        jug.add(new Jugador("Enrique", "12489760", 18, 239, ali.get(4), bi.get(0)));
+        
+        jug.add(new Jugador("Pamela", "12218756", 23, 670, ali.get(5), bi.get(0)));
+        jug.add(new Jugador("Nuila", "12235367", 47, 654, ali.get(6), bi.get(0)));
+        jug.add(new Jugador("James", "11127789", 33, 377, ali.get(7), bi.get(0)));
+        jug.add(new Jugador("Luis", "18956723", 87, 899, ali.get(8), bi.get(0)));
+        jug.add(new Jugador("Rigoberto", "11256478", 34, 179, ali.get(9), bi.get(0)));
+        
+        ActualizarListas();
+        for (Jugador jugador : jug) {
+            DefaultListModel modelo = (DefaultListModel) jl_jugadores.getModel();
+            modelo.addElement(jugador);
+        }
+
+    }
+    
+    private void ActualizarListas(){
+        for (Billetera billetera : bi) {
+            DefaultListModel modelo = (DefaultListModel) jl_billeteras.getModel();
+            modelo.addElement(billetera);
+        }
+        for (Alimento alimento : ali) {
+            DefaultListModel modelo = (DefaultListModel) jl_alimentos.getModel();
+            modelo.addElement(alimento);
+        }
+        for (Categoria categoria : cat) {
+            DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_categoria.getModel();
+            modelo.addElement(categoria);
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_aceptar_solicitud;
@@ -640,7 +727,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -654,7 +740,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable3;
-    private javax.swing.JTree jTree1;
     private javax.swing.JFormattedTextField jftf_calorias;
     private javax.swing.JFormattedTextField jftf_consumomaximo;
     private javax.swing.JFormattedTextField jftf_costbilletera;
@@ -662,11 +747,14 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JList<String> jl_alimentos;
     private javax.swing.JList<String> jl_amigos;
     private javax.swing.JList<String> jl_billeteras;
+    private javax.swing.JList<String> jl_jugadores;
+    private javax.swing.JTree jt_categorias;
     private javax.swing.JTextField jtf_nombre;
     private javax.swing.JTextField jtf_nomcategoria;
     // End of variables declaration//GEN-END:variables
     ArrayList <Billetera> bi = new ArrayList();
     ArrayList <Alimento> ali = new ArrayList();
     ArrayList <Categoria> cat = new ArrayList();
+    ArrayList <Jugador> jug = new ArrayList();
 
 }
