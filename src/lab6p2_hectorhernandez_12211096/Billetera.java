@@ -34,7 +34,7 @@ public class Billetera {
 
     @Override
     public String toString() {
-        return "Billetera{" + "consumo=" + consumo + ", costo=" + costo + '}';
+        return "Billetera = " + "Consumo Maximo: " + consumo + ", Costo: " + costo + '}';
     }
     
     

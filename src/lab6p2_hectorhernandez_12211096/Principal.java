@@ -5,6 +5,7 @@
  */
 package lab6p2_hectorhernandez_12211096;
 
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
@@ -124,6 +125,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 12)); // NOI18N
         jLabel4.setText("500");
 
+        jList1.setModel(new DefaultListModel());
         jScrollPane7.setViewportView(jList1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -180,8 +182,10 @@ public class Principal extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         jButton2.setText("Comprar");
 
+        jl_alimentos.setModel(new DefaultListModel());
         jScrollPane8.setViewportView(jl_alimentos);
 
+        jl_billeteras.setModel(new DefaultListModel());
         jScrollPane9.setViewportView(jl_billeteras);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -405,6 +409,7 @@ public class Principal extends javax.swing.JFrame {
         bt_rechazar_solicitud.setFont(new java.awt.Font("Times New Roman", 1, 12)); // NOI18N
         bt_rechazar_solicitud.setText("Rechazar");
 
+        jl_amigos.setModel(new DefaultListModel());
         jScrollPane10.setViewportView(jl_amigos);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -509,32 +514,66 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
         int consumo_maximo;
         int costo;
+        try {
+            consumo_maximo = Integer.parseInt(jftf_consumomaximo.getText());
+            costo = Integer.parseInt(jftf_costbilletera.getText());
 
-        consumo_maximo = Integer.parseInt(jftf_consumomaximo.getText());
-        costo = Integer.parseInt(jftf_costbilletera.getText());
+            Billetera billetera = new Billetera(consumo_maximo, costo);
+            bi.add(billetera);
+            DefaultListModel modelo = (DefaultListModel) jl_billeteras.getModel();
+            modelo.addElement(new Billetera(consumo_maximo, costo));
+            
 
-        DefaultListModel modelo = new DefaultListModel();
+            jftf_consumomaximo.setText("");
+            jftf_costbilletera.setText("");
+            cargarLista();
 
-        modelo.addElement(new Billetera(consumo_maximo, costo));
-        jftf_consumomaximo.setText("");
-        jftf_costbilletera.setText("");
-        JOptionPane.showMessageDialog(rootPane, "Billetera Creada Exitosamente");
+            JOptionPane.showMessageDialog(rootPane, "Billetera Creada Exitosamente");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Error!");
+        }
     }//GEN-LAST:event_bt_crear_billeteraMouseClicked
-
+    private void cargarLista(){
+        DefaultListModel modelo = (DefaultListModel) jl_billeteras.getModel();
+        modelo.removeAllElements();
+        
+        for (Billetera billetera : bi) {
+            modelo.addElement(billetera);
+        }
+               
+    }
     private void bt_crear_alimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_crear_alimentoMouseClicked
         // TODO add your handling code here:
-        String nombre;
-        Categoria categoria;
-        int costo;
-        int calorias;
-        
-        nombre = jtf_nombre.getText();
-        categoria = (Categoria) cb_categoria.getSelectedItem();
-        costo = Integer.parseInt(jftf_costo.getText());
-        calorias = Integer.parseInt(jftf_calorias.getText());
-        
-        
+        try {
+            String nombre;
+            Categoria categoria;
+            int costo;
+            int calorias;
 
+            nombre = jtf_nombre.getText();
+            categoria = (Categoria) cb_categoria.getSelectedItem();
+            costo = Integer.parseInt(jftf_costo.getText());
+            calorias = Integer.parseInt(jftf_calorias.getText());
+
+            Alimento alimentos = new Alimento(nombre, categoria, costo, calorias);
+            ali.add(alimentos);
+            DefaultListModel modelo = (DefaultListModel) jl_alimentos.getModel();
+            modelo.addElement(new Alimento(nombre, categoria, costo, calorias));
+
+            jtf_nombre.setText("");
+            cb_categoria.setSelectedItem("");
+            jftf_costo.setText("");
+            jftf_calorias.setText("");
+
+            cargarLista();
+
+            JOptionPane.showMessageDialog(rootPane, "Alimeto Creado Exitosamente");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(rootPane, "Error!");
+        }
     }//GEN-LAST:event_bt_crear_alimentoMouseClicked
 
     /**
@@ -626,4 +665,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField jtf_nombre;
     private javax.swing.JTextField jtf_nomcategoria;
     // End of variables declaration//GEN-END:variables
+    ArrayList <Billetera> bi = new ArrayList();
+    ArrayList <Alimento> ali = new ArrayList();
+    ArrayList <Categoria> cat = new ArrayList();
+
 }
