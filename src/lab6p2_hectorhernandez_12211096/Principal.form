@@ -31,27 +31,21 @@
       <SubComponents>
         <MenuItem class="javax.swing.JMenuItem" name="Eliminar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Eliminar"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="EliminarMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EliminarActionPerformed"/>
           </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="Seleccionar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem2"/>
+            <Property name="text" type="java.lang.String" value="Seleccionar"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SeleccionarMouseClicked"/>
-          </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="Enviar_Solicitud">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem3"/>
+            <Property name="text" type="java.lang.String" value="Enviar Solicitud"/>
           </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Enviar_SolicitudMouseClicked"/>
-          </Events>
         </MenuItem>
       </SubComponents>
     </Container>

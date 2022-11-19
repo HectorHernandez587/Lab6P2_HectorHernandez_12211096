@@ -109,28 +109,18 @@ public class Principal extends javax.swing.JFrame {
         ));
         jScrollPane4.setViewportView(jTable3);
 
-        Eliminar.setText("jMenuItem1");
-        Eliminar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                EliminarMouseClicked(evt);
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
             }
         });
         popup_menu.add(Eliminar);
 
-        Seleccionar.setText("jMenuItem2");
-        Seleccionar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SeleccionarMouseClicked(evt);
-            }
-        });
+        Seleccionar.setText("Seleccionar");
         popup_menu.add(Seleccionar);
 
-        Enviar_Solicitud.setText("jMenuItem3");
-        Enviar_Solicitud.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Enviar_SolicitudMouseClicked(evt);
-            }
-        });
+        Enviar_Solicitud.setText("Enviar Solicitud");
         popup_menu.add(Enviar_Solicitud);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -651,23 +641,16 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jt_categoriasMouseClicked
 
-    private void EliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EliminarMouseClicked
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_EliminarMouseClicked
+        int respuesta = JOptionPane.showConfirmDialog(this, "Seguro de Eliminar?", "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-    private void SeleccionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SeleccionarMouseClicked
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_SeleccionarMouseClicked
-
-    private void Enviar_SolicitudMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Enviar_SolicitudMouseClicked
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_Enviar_SolicitudMouseClicked
+        if (respuesta == JOptionPane.OK_OPTION) {
+            DefaultTreeModel modelo = (DefaultTreeModel) jt_categorias.getModel();
+            modelo.removeNodeFromParent(nodo_seleccionado);
+            modelo.reload();
+        }
+    }//GEN-LAST:event_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
