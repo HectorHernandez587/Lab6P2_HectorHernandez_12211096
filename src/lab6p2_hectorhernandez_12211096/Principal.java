@@ -699,7 +699,7 @@ public class Principal extends javax.swing.JFrame {
         int pos = jl_alimentos.getSelectedIndex();
         int pos2 = jl_jugadores.getSelectedIndex();
 
-        if (jug.get(pos2).getConsumo() > ali.get(pos).getCosto()) {
+        if (jug.get(pos2).getConsumo() >= ali.get(pos).getCosto()) {
             jug.get(pos2).setAlimento(ali.get(pos));
             JOptionPane.showMessageDialog(rootPane, "Comprado con exito");
         } else {
@@ -709,6 +709,15 @@ public class Principal extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+        int pos = jl_billeteras.getSelectedIndex();
+        int pos2 = jl_jugadores.getSelectedIndex();
+
+        if (jug.get(pos2).getConsumo() >= bi.get(pos).getCosto()) {
+            jug.get(pos2).setBilletera(bi.get(pos));
+            JOptionPane.showMessageDialog(rootPane, "Comprado con exito");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "No tiene suficiente consumo para comprar eso");
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
